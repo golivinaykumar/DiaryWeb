@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<beans xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							 http://www.springframework.org/schema/beans/spring-beans.xsd 
+							 http://www.springframework.org/schema/context
+							 http://www.springframework.org/schema/context/spring-context.xsd 
+							 http://www.springframework.org/schema/mvc 
+							 http://www.springframework.org/schema/mvc/spring-mvc.xsd" 
+	  xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	  xmlns:context="http://www.springframework.org/schema/context" 
+	  xmlns="http://www.springframework.org/schema/beans">
+
+	
+<context:component-scan base-package="com.ebase.calc.controller"/>
+<mvc:annotation-driven/>
+
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+			<property name="prefix">
+			<value>/WEB-INF/</value>
+			</property>
+	
+			<property name="suffix">
+			<value>.jsp</value>
+			</property>
+	
+	</bean>
+	 <bean id="dataSource" 
+         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/hibernate" />
+		<property name="username" value="vinay" />
+		<property name="password" value="vinay1" />
+	</bean>
+		<!-- Hibernate session factory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+ 	    <property name="dataSource">
+	      <ref bean="dataSource"/>
+	    </property>
+	 
+	    <property name="hibernateProperties">
+	       <props>
+	         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+	         <prop key="hibernate.show_sql">true</prop>
+	         <prop key="hibernate.hbm2ddl.auto">update</prop>
+	       </props>
+	       
+	     </property>
+	 
+	     <property name="mappingResources">
+			<list>
+		           <value>/hibernate/Post.hbm.xml</value>
+		           <value>/hibernate/User.hbm.xml</value>
+			</list>
+	     </property>	
+	     
+	</bean>
+	
+
+		
+		<bean id="postDAO" class="com.ebase.calc.dao.PostDAO"  autowire="byName">
+		</bean>
+		<bean id="userDAO" class="com.ebase.calc.dao.UserDAO" autowire="byName">
+		
+		</bean>
+		<bean id="diaryManager" class="com.ebase.calc.manager.DiaryManager" autowire="byName">
+			
+		</bean>
+		<bean id="postManager" class="com.ebase.calc.manager.PostManager" autowire="byName">
+		</bean>
+		<bean id="userManager" class="com.ebase.calc.manager.UserManager" autowire="byName" >
+		</bean>
+		<bean id="validationPostManager" class="com.ebase.calc.manager.ValidationPostManager" autowire="byName">
+		</bean>
+		<bean id="validationUserManager" class="com.ebase.calc.manager.ValidationUserManager" autowire="byName">
+		</bean>
+		<bean id="userController" class="com.ebase.calc.controller.UserController" autowire="byName" >
+		</bean>
+		<bean id="diaryController" class="com.ebase.calc.controller.DiaryController" autowire="byName">
+		</bean>
+		
+
+
+
+
+</beans>

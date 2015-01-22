@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2013 1:02:32 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.ebase.pojo.Post" table="post_details">
+         <id name="countId" type="long">
+            <column name="countId" />
+             <generator class="assigned" />
+        </id>
+       
+        <property name="title" type="java.lang.String">
+            <column name="title" />
+        </property>
+        
+        <property name="description" type="java.lang.String">
+            <column name="description" />
+        </property>
+        <property name="feelings" type="java.lang.String">
+            <column name="feelings" />
+        </property>
+        <property name="postedDate" type="java.sql.Timestamp">
+            <column name="postedDate" />
+        </property>
+        <many-to-one name="user" column="id" class="com.ebase.pojo.User" not-null="true"/>
+        
+        
+    </class>
+</hibernate-mapping>
